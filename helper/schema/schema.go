@@ -19,6 +19,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/hashicorp/terraform/config"
 	"github.com/hashicorp/terraform/terraform"
 	"github.com/mitchellh/mapstructure"
 )
@@ -664,9 +665,23 @@ func (m schemaMap) InternalValidate(topSchemaMap schemaMap) error {
 				return fmt.Errorf("ValidateFunc is not yet supported on lists or sets.")
 			}
 		}
+
+		// Reserved names
+		if isReservedFieldName(k) {
+			return fmt.Errorf("%s is a reserved field name, pick a different one please", k)
+		}
 	}
 
 	return nil
+}
+
+func isReservedFieldName(name string) bool {
+	for _, rn := range config.ReservedResourceFields {
+		if name == rn {
+			return true
+		}
+	}
+	return false
 }
 
 func (m schemaMap) diff(

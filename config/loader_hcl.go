@@ -17,6 +17,15 @@ type hclConfigurable struct {
 	Root *ast.File
 }
 
+var ReservedResourceFields = []string{
+	"connection",
+	"count",
+	"depends_on",
+	"lifecycle",
+	"provider",
+	"provisioner",
+}
+
 func (t *hclConfigurable) Config() (*Config, error) {
 	validKeys := map[string]struct{}{
 		"atlas":     struct{}{},
