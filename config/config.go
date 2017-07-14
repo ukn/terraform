@@ -1026,7 +1026,6 @@ func (v *Variable) ValidateTypeAndDefault() error {
 
 // ValidateSecret ensures that secret parameter of a variable is either "true" or "false"
 func (v *Variable) ValidateSecret() error {
-	fmt.Printf("[DEBUG] SECRET %s\n", v.Secret)
 	if v.Secret != "" {
 		if (v.Secret != "true") && (v.Secret != "false") {
 			return fmt.Errorf("'%s' secret parameter must be a string equal to \"true\" or \"false\" ", v.Name)

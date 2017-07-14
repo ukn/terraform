@@ -528,7 +528,6 @@ func loadVariablesHcl(list *ast.ObjectList) ([]*Variable, error) {
 		if err := newVar.ValidateTypeAndDefault(); err != nil {
 			return nil, err
 		}
-		fmt.Printf("[DEBUG] SECRET loader_hcl %s\n", newVar.Secret)
 		if err := newVar.ValidateSecret(); err != nil {
 			return nil, err
 		}
